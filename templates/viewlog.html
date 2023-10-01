@@ -5,6 +5,14 @@
 <h2>{{ the_title }}</h2>
 
 <table>
+    {% for row in info %}
+    <tr>
+        <td>{{row}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<table>
     <tr>
         {% for row_title in the_row_titles %}
             <th>{{row_title}}</th>
