@@ -23,10 +23,10 @@ def do_search() -> 'html':
 @app.route('/statistics', methods=['POST'])
 def do_statistics() -> 'html':
     option = request.form['option']
-    result_matrix, row_titles = my_CSV.statistics(option)
+    result_matrix, row_titles, info = my_CSV.statistics(option)
 
     return render_template('viewlog.html', the_title=option,
-                           the_data=result_matrix, the_row_titles=row_titles)
+                           the_data=result_matrix, the_row_titles=row_titles, info=info)
 
 
 if __name__ == '__main__':

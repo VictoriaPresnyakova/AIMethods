@@ -37,12 +37,19 @@ class MyCSV:
         return content, row_titles, info.split('\n')
 
     def statistics(self, column_to_group: str) -> tuple:
-        columns_to_show = ['Price']
+        columns_to_show = 'Price'
         first_column = sorted(self.data[column_to_group].unique())
 
-        data = self.data.groupby([column_to_group])[columns_to_show].agg([np.min, np.max, np.average])
-        row_titles = [''] + data.columns.tolist()
+        data = self.data.groupby([column_to_group])[columns_to_show].agg([min, max, np.average]).reset_index()
+
+        row_titles = data.columns.tolist()
+        text = 'min ' + columns_to_show + ' ' + str(data[row_titles[0]][data[row_titles[1]] == data[row_titles[1]].min()]
+                                                    .to_numpy()) + '\n' \
+               'max ' + columns_to_show + ' ' + str(data[row_titles[0]][data[row_titles[2]] == data[row_titles[2]].max()]
+                                                    .to_numpy()) + '\n' \
+               'min average' + columns_to_show + ' ' + str(data[row_titles[0]][data[row_titles[3]] == data[row_titles[3]].min()]
+                                                           .to_numpy()) + '\n' \
+               'max average' + columns_to_show + ' ' + str(data[row_titles[0]][data[row_titles[3]] == data[row_titles[3]].max()]
+                                                           .to_numpy())
         data = data.to_numpy()
-        new_column = np.array(first_column).reshape(-1, 1)
-        result_matrix = np.hstack((new_column, data))
-        return result_matrix, row_titles
+        return data, row_titles, text.split('\n')
