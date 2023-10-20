@@ -4,7 +4,7 @@
 
 <h2>{{ the_title }}</h2>
 
-<form method='POST' action='/search4'>
+<form method='POST' >
 <table>
 <p>Use this form to submit a search request:</p>
 <tr><td>Columns from:</td><td><input name='columns_from' type='TEXT' value='1' width='60'></td></tr>
@@ -14,7 +14,7 @@
 <tr><td>Rows to:</td><td><input name='rows_to' type='TEXT' value='1000'></td></tr>
 </table>
 <p>When you're ready, click this button:</p>
-<p><input value='Do it!' type='SUBMIT'></p>
+<p><input value='Do it!' type='SUBMIT' formaction='/search4'> </p>
       <select name='option'>
           <option value='Manufacturer'>Manufacturer</option>
           <option value='Category'>Category</option>
@@ -25,6 +25,15 @@
       <p><input name='action' value='Statistics' type='SUBMIT' formaction='/statistics'></p>
       <p><input name='action' value='Add Rows' type='SUBMIT' formaction='/add_rows'></p>
 
+    <table>
+    <tr>
+        <td>Search 4 kaggle:</td>
+        <td><input name='searchKaggle' type='TEXT' value='' width='60'></td>
+        <td><input value='Search!' type='SUBMIT' formaction='/search4kaggle'></td>
+
+    </tr>
+    </table>
 </form>
 
 {% endblock %}
+
