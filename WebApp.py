@@ -63,7 +63,7 @@ def search4kaggle():
     print(word)
     if not bloom_filter.check_is_not_in_filter(word):  # it can be in list
         lst = [k for k, val in kaggles.items() if word in val]
-        print(lst)
+        #print(lst)
         if lst:
             return render_template('viewlog.html', the_title="Links", info=lst)
     return entry_page()
