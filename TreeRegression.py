@@ -39,4 +39,4 @@ tree = MyTree(data_percent, list(pi_manufacturer.keys()))
 d = other_data.groupby(['Manufacturer', 'Prod. year'])['Price'].agg(np.average).reset_index()
 print(d)
 for i in d.to_numpy():
-    print(i[0], i[1], tree.search(i[0], i[1]))
+    print(i[0], i[1], tree.search(i[0], i[1]), d['Price'][d['Manufacturer'] == i[0]][d['Prod. year'] == i[1]].to_numpy()[0])
