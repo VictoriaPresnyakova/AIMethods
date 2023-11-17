@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, escape, session
+from flask import Flask, render_template, request
 
 from BloomFilter import BloomFilter
 from ReadCSV import MyCSV

@@ -1,8 +1,12 @@
 import io
 import random
+from typing import Sequence
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import pandas
+
 from Try_parse_int import try_parse_int
 
 
@@ -46,9 +50,7 @@ class MyCSV:
 
     def statistics(self, column_to_group: str) -> dict:
         columns_to_show = 'Price'
-
-        data = self.data.groupby([column_to_group])[columns_to_show].agg([min, max, np.average]).reset_index()
-
+        data = self.group_by(column_to_group, columns_to_show, [min, max, np.average])
         row_titles = data.columns.tolist()
         text = 'min ' + columns_to_show + ' ' + str(
             data[row_titles[0]][data[row_titles[1]] == data[row_titles[1]].min()]
@@ -64,6 +66,10 @@ class MyCSV:
             .to_numpy())
         data = data.to_numpy()
         return {'the_data': data, 'the_row_titles': row_titles, 'info': text.split('\n')}
+
+    def group_by(self, columns_to_group, columns_to_show, func) -> pandas.DataFrame:
+        data = self.data.groupby(columns_to_group)[columns_to_show].agg(func).reset_index()
+        return data
 
     def add_data(self, percent: int = 5):
         ad_df = {}
