@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h2>{{ the_title }}</h2>
+
+<form method='POST' >
+<table>
+<tr><td>Label:</td><td><input name='label' type='TEXT' value='Low' width='60'></td></tr>
+
+<tr><td>Values (3 for triangular; 4 for trapezoidal):</td><td><input name='values' type='TEXT' value='0 10 20 30'></td></tr>
+</table>
+<p><input value='Do it!' type='SUBMIT' formaction='/change-plot'> </p>
+    <div style="text-align: center;"><img src="{{ user_image }}" alt="Plot"></div>
+
+</form>
+
+{% endblock %}
