@@ -3,14 +3,16 @@ import matplotlib.pyplot as plt
 
 
 class LinguisticScale:
-    def __init__(self, num_labels=5):
-        self.num_labels = num_labels
+    def __init__(self):
         self.labels = {}
-        self.membership_functions = {}
+        # Пример задания пользовательских функций принадлежности
+        self.add_label('Low', [0, 0, 20, 40])
+        self.add_label('Medium', [30, 50, 70])
+        self.add_label('High', [60, 80, 100, 100])
 
-    def add_label(self, label, membership_func):
-        self.labels[label] = membership_func
-        self.save_plot_scale()
+    # def add_label(self, label, membership_func):
+    #     self.labels[label] = membership_func
+    #     self.save_plot_scale()
 
     def save_plot_scale(self):
         ox = np.linspace(0, 100, 1000)
@@ -25,10 +27,9 @@ class LinguisticScale:
         # plt.show()
         plt.savefig('static/images/plot.png')
 
-    def change_scale(self, label, values):
-
-        self.add_label(label,
-                       lambda x: trapezoidal_mf(x, *values) if len(values) == 4 else triangular_mf(x, *values))
+    def add_label(self, label, values):
+        self.labels[label] = lambda x: trapezoidal_mf(x, *values) if len(values) == 4 \
+            else triangular_mf(x, *values)
         self.save_plot_scale()
 
 
@@ -57,17 +58,3 @@ def help_trapezoidal_mf(x, a, b, c, d):
         return (d - x) / (d - c)
     return 0
 
-
-def create_scale():
-    scale = LinguisticScale()
-
-    # Пример задания пользовательских функций принадлежности
-    scale.add_label('Low', lambda x: trapezoidal_mf(x, 0, 0, 20, 40))
-    scale.add_label('Medium', lambda x: triangular_mf(x, 30, 50, 70))
-    scale.add_label('High', lambda x: trapezoidal_mf(x, 60, 80, 100, 100))
-
-    return scale
-
-
-if __name__ == "__main__":
-    create_scale()

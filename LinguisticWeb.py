@@ -2,11 +2,11 @@ import os
 
 from flask import Flask, render_template, request
 
-from LinguisticScale import create_scale
+from LinguisticScale import LinguisticScale
 
 app = Flask(__name__)
 
-scale = create_scale()
+scale = LinguisticScale()
 
 
 @app.route("/")
@@ -18,7 +18,7 @@ def Display_IMG():
 @app.route("/change-plot", methods=['POST'])
 def Change_IMG():
     try:
-        scale.change_scale(request.form['label'], [int(val) for val in request.form['values'].split()])
+        scale.add_label(request.form['label'], [int(val) for val in request.form['values'].split()])
     except Exception as ex:
         print(ex)
     return Display_IMG()
